@@ -45,7 +45,8 @@ export interface MetricsExpositionOptions {
  * Container for all registered metrics
  */
 export class Registry<
-	BoundRegistryContentType extends RegistryContentType = RegistryContentType,
+	BoundRegistryContentType extends RegistryContentType =
+		BaseRegistryContentType,
 > {
 	/**
 	 * @param regContentType The content type of the registry
@@ -144,7 +145,7 @@ export class Registry<
 	 * OpenMetrics versions.
 	 * @param contentType The type of the registry
 	 */
-	setContentType(contentType: BoundRegistryContentType): void;
+	setContentType(contentType: RegistryContentType): void;
 
 	/**
 	 * Merge registers
@@ -161,7 +162,7 @@ export class Registry<
 	 *   `registry.getMetricsAsJSON()`.
 	 * @returns {Registry} aggregated registry.
 	 */
-	static aggregate<T extends RegistryContentType = PrometheusContentType>(
+	static aggregate<T extends RegistryContentType = BaseRegistryContentType>(
 		metricsArr: Array<object>,
 		registryType?: T,
 	): Registry<T>; // TODO Promise?
